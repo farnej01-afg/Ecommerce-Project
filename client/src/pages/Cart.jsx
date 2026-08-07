@@ -2,11 +2,13 @@ import useCartStore from "@/features/cart/cartStore";
 import { useOrderTotal } from "@/hooks/useOrderTotal";
 import { useNavigate } from "react-router";
 import useAuthStore from "@/features/auth/authStore";
+import { useProducts } from "@/hooks/useProducts";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "react-toastify";
 
 const Cart = () => {
+  const { data: products } = useProducts();
   const items = useCartStore((state) => state.items);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -51,87 +53,93 @@ const Cart = () => {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
-              {items.map((item) => (
-                <Card
-                  key={item._id}
-                  className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] p-6 flex gap-4 transition-all duration-500 ease-out hover:border-white/25 hover:bg-white/9 hover:shadow-[0_20px_50px_rgba(0,0,0,0.55)]"
-                >
-                  {/* Image */}
-                  <div className="w-24 h-24 rounded-2xl bg-white/5 border border-white/10 shrink-0 overflow-hidden">
-                    {item.images ? (
-                      <img
-                        src={item.images}
-                        alt={item.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-white/40 text-xs">
-                        No Image
-                      </div>
-                    )}
-                  </div>
+              {items.map((item) => {
+                const product = products?.find((p) => p._id === item._id);
+                const productImage = product?.images?.[0]?.url;
 
-                  {/* Item Details */}
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white mb-2">
-                      {item.name}
-                    </h3>
-                    <p className="text-white/60 text-sm mb-4 line-clamp-2">
-                      {item.description}
-                    </p>
-
-                    {/* Quantity Controls */}
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm overflow-hidden">
-                        <button
-                          onClick={() =>
-                            updateQuantity(item._id, item.quantity - 1)
-                          }
-                          className="px-3 py-2 text-white hover:bg-white/10 transition-colors"
-                        >
-                          −
-                        </button>
-                        <span className="px-4 py-2 font-medium text-white">
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() =>
-                            updateQuantity(item._id, item.quantity + 1)
-                          }
-                          disabled={item.quantity >= item.countInStock}
-                          className="px-3 py-2 text-white hover:bg-white/10 disabled:opacity-30 transition-colors"
-                        >
-                          +
-                        </button>
-                      </div>
-
-                      {/* Remove Button */}
-                      <button
-                        onClick={() => removeFromCart(item._id)}
-                        className="text-rose-500 hover:text-rose-400 font-medium transition-all duration-300 hover:scale-110"
-                      >
-                        Remove
-                      </button>
+                return (
+                  <Card
+                    key={item._id}
+                    className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] p-6 flex gap-4 transition-all duration-500 ease-out hover:border-white/25 hover:bg-white/9 hover:shadow-[0_20px_50px_rgba(0,0,0,0.55)]"
+                  >
+                    {/* Image */}
+                    <div className="w-24 h-24 rounded-2xl bg-white/5 border border-white/10 shrink-0 overflow-hidden">
+                      {productImage ? (
+                        <img
+                          src={productImage}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-white/40 text-xs">
+                          No Image
+                        </div>
+                      )}
                     </div>
-                  </div>
 
-                  {/* Price */}
-                  <div className="text-right flex flex-col justify-between">
-                    <div>
-                      <p className="text-sm text-white/50">Unit Price</p>
-                      <p className="text-lg font-semibold text-white">
-                        ${item.price}
+                    {/* Item Details */}
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold text-white mb-2">
+                        {item.name}
+                      </h3>
+                      <p className="text-white/60 text-sm mb-4 line-clamp-2">
+                        {item.description}
                       </p>
+
+                      {/* Quantity Controls */}
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm overflow-hidden">
+                          <button
+                            onClick={() =>
+                              updateQuantity(item._id, item.quantity - 1)
+                            }
+                            disabled={item.quantity <= 1}
+                            className="px-3 py-2 text-white hover:bg-white/10 transition-colors"
+                          >
+                            −
+                          </button>
+                          <span className="px-4 py-2 font-medium text-white">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() =>
+                              updateQuantity(item._id, item.quantity + 1)
+                            }
+                            disabled={item.quantity >= item.countInStock}
+                            className="px-3 py-2 text-white hover:bg-white/10 disabled:opacity-30 transition-colors"
+                          >
+                            +
+                          </button>
+                        </div>
+
+                        {/* Remove Button */}
+                        <button
+                          onClick={() => removeFromCart(item._id)}
+                          className="text-rose-500 hover:text-rose-400 font-medium transition-all duration-300 hover:scale-110"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-white/50">Subtotal</p>
-                      <p className="text-xl font-bold text-white">
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </p>
+
+                    {/* Price */}
+                    <div className="text-right flex flex-col justify-between">
+                      <div>
+                        <p className="text-sm text-white/50">Unit Price</p>
+                        <p className="text-lg font-semibold text-white">
+                          ${item.price}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-white/50">Subtotal</p>
+                        <p className="text-xl font-bold text-white">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
 
             {/* Summary */}
@@ -166,9 +174,9 @@ const Cart = () => {
                     disabled={pricingLoading || total === undefined}
                     className="w-full rounded-2xl bg-white text-black hover:bg-white/90 py-3 font-bold transition-all duration-300 active:scale-[0.97]"
                   >
-                    {(pricingLoading || total === undefined) ?
-                      "Calculating total…" : "Proceed to Checkout"}
-                    
+                    {pricingLoading || total === undefined
+                      ? "Calculating total…"
+                      : "Proceed to Checkout"}
                   </Button>
                   <Button
                     onClick={() => navigate("/products")}

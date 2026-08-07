@@ -158,8 +158,8 @@ const About = () => {
               ))}
             </div>
 
-            <GlassPanel className="mt-14 px-10 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
+            <GlassPanel className="mt-14 px-10 py-12 flex flex-col md:flex-row items-center justify-between gap-6 ">
+              <div className="ml-2">
                 <h2 className="font-bold text-3xl text-white">
                   Made by hand. Made to last.
                 </h2>

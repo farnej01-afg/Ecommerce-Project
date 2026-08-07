@@ -1,6 +1,8 @@
-import React from "react";
+import { useCategories } from "@/hooks/useCategories";
 
 export default function Footer() {
+  const { data: categories, isLoading, isError } = useCategories();
+
   return (
     <footer className="bg-[#111e2e] text-[#8a9cae] font-sans text-sm tracking-wide pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
@@ -65,71 +67,18 @@ export default function Footer() {
             Collections
           </h3>
           <ul className="space-y-3">
-            <li>
-              <a
-                href="#"
-                className="hover:text-white transition-colors duration-200"
-              >
-                BCF Carpets
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-white transition-colors duration-200"
-              >
-                Shaggy Carpets
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-white transition-colors duration-200"
-              >
-                Polyester
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-white transition-colors duration-200"
-              >
-                Heatset Carving
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column 3: Collections 2 */}
-        <div>
-          <h3 className="text-white text-base font-semibold uppercase tracking-wider mb-8">
-            Collections
-          </h3>
-          <ul className="space-y-3">
-            <li>
-              <a
-                href="#"
-                className="hover:text-white transition-colors duration-200"
-              >
-                Mosque Carpets
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-white transition-colors duration-200"
-              >
-                Heatset Carpets
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-white transition-colors duration-200"
-              >
-                2022 Catalogue
-              </a>
-            </li>
+            {isLoading && <li className="text-xs opacity-60">Loading...</li>}
+            {isError && <li className="text-xs opacity-60">Couldn't load</li>}
+            {categories?.map((cat) => (
+              <li key={cat.id ?? cat.name}>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors duration-200"
+                >
+                  {cat.name}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -199,7 +148,8 @@ export default function Footer() {
                 />
               </svg>
               <span>
-                Antique Forosha Lane (Shah Bobo Jan St), Shahr-e-Naw, District-2, Kabul, Afghanistan.
+                Antique Forosha Lane (Shah Bobo Jan St), Shahr-e-Naw,
+                District-2, Kabul, Afghanistan.
               </span>
             </li>
           </ul>

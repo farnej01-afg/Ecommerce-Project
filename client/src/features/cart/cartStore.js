@@ -35,14 +35,17 @@ const useCartStore = create(
         set((state) => ({
           items: state.items.map((item) =>
             item._id === productId
-              ? { ...item, quantity: Math.min(quantity, item.countInStock) }
+              ? {
+                  ...item,
+                  quantity: Math.max(1, Math.min(quantity, item.countInStock)),
+                }
               : item,
           ),
         })),
       clearCart: () => set({ items: [] }),
     }),
     {
-      name: "cart-storage", // localStorage key name
+      name: "cart-storage",
     },
   ),
 );

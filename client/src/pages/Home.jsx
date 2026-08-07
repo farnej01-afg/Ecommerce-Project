@@ -18,7 +18,7 @@ const Home = () => {
         />
       )}
       {/* hero section */}
-      <section className="relative min-w-full min-h-screen overflow-hidden bg-black text-white pt-30">
+      <section className="relative min-w-full min-h-fit md:min-h-screen overflow-hidden bg-black text-white pt-30">
         {/* Ambient color blobs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -left-40 h-128 w-lg rounded-full bg-amber-700/20 blur-[120px]" />

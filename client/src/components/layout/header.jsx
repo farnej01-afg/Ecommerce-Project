@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 import useCartStore from "@/features/cart/cartStore";
 import SettingsMenu from "./settingsMenu";
 
-
 function Header() {
   const [activeTab, setActiveTab] = useState("new-in");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -54,43 +53,26 @@ function Header() {
           <div className="pointer-events-auto flex items-center gap-4 lg:gap-5 bg-zinc-500/30 backdrop-blur-xl text-xs px-4 py-2.5 rounded-full border border-white/10 shadow-lg shadow-black/20 shrink-0">
             <button className="text-zinc-400 hover:text-white transition-colors flex items-center">
               <TTip text="Search an Item" position="bottom">
-                <Search
-                  size={15}
-                  strokeWidth={1.5}
-                  className="cursor-pointer"
-                />
+                <Search size={15} strokeWidth={1.5} className="cursor-pointer" />
               </TTip>
             </button>
-            <div className="relative">
-              <button
-                onClick={() => setSettingsOpen((prev) => !prev)}
-                className="text-zinc-400 hover:text-white transition-colors flex items-center"
-              >
-                <TTip text="Settings" position="bottom">
-                  <Settings
-                    size={15}
-                    strokeWidth={1.5}
-                    className="cursor-pointer"
-                  />
-                </TTip>
-              </button>
 
-              <SettingsMenu
-                open={settingsOpen}
-                onClose={() => setSettingsOpen(false)}
-              />
-            </div>
+            {/* Settings TRIGGER only — no SettingsMenu nested here anymore */}
+            <button
+              onClick={() => setSettingsOpen((prev) => !prev)}
+              className="text-zinc-400 hover:text-white transition-colors flex items-center"
+            >
+              <TTip text="Settings" position="bottom">
+                <Settings size={15} strokeWidth={1.5} className="cursor-pointer" />
+              </TTip>
+            </button>
 
             <button
               className="relative text-zinc-400 hover:text-white transition-colors flex items-center"
               onClick={() => navigate("/cart")}
             >
               <TTip text="Shopping Cart" position="bottom">
-                <ShoppingCart
-                  size={15}
-                  strokeWidth={1.5}
-                  className="cursor-pointer"
-                />
+                <ShoppingCart size={15} strokeWidth={1.5} className="cursor-pointer" />
                 <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-blue-600 text-white text-[8px] rounded-full flex items-center justify-center cursor-pointer">
                   {cartItems.length}
                 </span>
@@ -115,6 +97,7 @@ function Header() {
         {/* Expanded overflow menu (settings / search) */}
         {mobileMenuOpen && (
           <div className="absolute bottom-full left-3 right-3 mb-2 bg-zinc-900/90 backdrop-blur-xl border border-white/10 rounded-2xl p-2 space-y-1 shadow-xl shadow-black/40 animate__animated animate__fadeInUp animate__faster">
+            {/* Settings TRIGGER only — no SettingsMenu nested here anymore */}
             <button
               onClick={() => setSettingsOpen((prev) => !prev)}
               className="w-full flex items-center gap-3 text-left text-xs font-medium tracking-wide text-zinc-300 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors"
@@ -126,12 +109,6 @@ function Header() {
               <Search size={16} strokeWidth={1.5} />
               SEARCH
             </button>
-            <div className="relative">
-              <SettingsMenu
-                open={settingsOpen}
-                onClose={() => setSettingsOpen(false)}
-              />
-            </div>
           </div>
         )}
 
@@ -167,6 +144,16 @@ function Header() {
           </button>
         </div>
       </nav>
+
+      {/* ===================== SINGLE SettingsMenu instance — mounted once, positioned per breakpoint ===================== */}
+      {settingsOpen && (
+        <div className="fixed z-[60] bottom-24 inset-x-3 md:bottom-auto md:inset-x-auto md:top-20 md:right-10">
+          <SettingsMenu
+            open={settingsOpen}
+            onClose={() => setSettingsOpen(false)}
+          />
+        </div>
+      )}
     </div>
   );
 }

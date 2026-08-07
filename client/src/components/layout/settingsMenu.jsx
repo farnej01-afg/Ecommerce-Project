@@ -32,11 +32,14 @@ export default function SettingsMenu({ open, onClose }) {
     <div
       ref={menuRef}
       className="
-        absolute right-0 top-full mt-3 w-56 z-50
-        rounded-3xl border border-white/15 bg-white/8 backdrop-blur-xl
-        shadow-[0_20px_50px_rgba(0,0,0,0.55)]
-        overflow-hidden
-      "
+          absolute right-0 mt-3 w-56 z-50
+          top-full
+          max-md:top-auto max-md:bottom-full max-md:mb-3 max-md:mt-0
+          max-md:right-1/2 max-md:translate-x-1/2
+          rounded-3xl border border-white/15 bg-white/8 backdrop-blur-xl
+          shadow-[0_20px_50px_rgba(0,0,0,0.55)]
+          overflow-hidden
+        "
     >
       <div className="p-2">
         {token ? (
@@ -81,7 +84,7 @@ export default function SettingsMenu({ open, onClose }) {
               onClick={onClose}
               className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
             >
-              <ShieldCheck size={16} strokeWidth={1.5}/>
+              <ShieldCheck size={16} strokeWidth={1.5} />
               Admin Panel
             </Link>
           </>
