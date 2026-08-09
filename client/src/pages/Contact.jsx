@@ -76,26 +76,26 @@ const Contact = () => {
         />
       )}
 
-      <div className="container">
+      <div className="container overflow-x-hidden">
         {/* Hero */}
-        <section className="min-w-full min-h-60 bg-black text-white pt-40 pb-16 flex flex-col items-center justify-center relative overflow-hidden animate_animated animate__fadeInUp">
-          <div className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 h-95 w-95 rounded-full bg-amber-600/10 blur-[120px]" />
-          <h3 className="font-semibold text-7xl tracking-tight text-center mt-3 max-w-4xl leading-tight relative">
+        <section className="min-w-full min-h-60 bg-black text-white pt-32 sm:pt-40 pb-16 flex flex-col items-center justify-center relative overflow-hidden animate_animated animate__fadeInUp px-4">
+          <div className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 h-64 w-64 sm:h-95 sm:w-95 rounded-full bg-amber-600/10 blur-[120px]" />
+          <h3 className="font-semibold text-4xl sm:text-5xl md:text-7xl tracking-tight text-center mt-3 max-w-4xl leading-tight relative">
             Get in Touch
           </h3>
-          <h3 className="text-center text-zinc-400 font-normal mt-6 text-[22px] max-w-2xl relative">
+          <h3 className="text-center text-zinc-400 font-normal mt-6 text-base sm:text-lg md:text-[22px] max-w-2xl relative">
             Whether it's a single rug or a room-by-room commission, tell us what
             you have in mind.
           </h3>
         </section>
 
         {/* Form + Direct contact */}
-        <section className="min-w-full bg-zinc-950 text-white py-24">
-          <div className="grid grid-cols-[1.3fr_1fr] gap-8 max-w-6xl mx-auto items-start">
+        <section className="min-w-full bg-zinc-950 text-white py-16 sm:py-24 px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 max-w-6xl mx-auto items-start">
             {/* Inquiry form */}
             <form ref={formRef} onSubmit={sendInquiry}>
-              <GlassPanel className="p-10">
-                <h2 className="font-semibold text-3xl tracking-tight">
+              <GlassPanel className="p-6 md:p-10">
+                <h2 className="font-semibold text-2xl sm:text-3xl tracking-tight">
                   Start an order inquiry
                 </h2>
                 <p className="text-zinc-400 text-sm mt-2 leading-relaxed">
@@ -103,7 +103,7 @@ const Contact = () => {
                   team who'll size and price it with you.
                 </p>
 
-                <div className="grid grid-cols-2 gap-5 mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-8">
                   <div className="flex flex-col gap-2">
                     <label className="text-zinc-400 text-sm font-medium">
                       Full name
@@ -112,7 +112,7 @@ const Contact = () => {
                       type="text"
                       name="name"
                       placeholder="Your name"
-                      className="bg-white/4 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 outline-none transition-colors focus:border-amber-500/40 focus:bg-white/6 focus:ring-2 focus:ring-amber-500/10"
+                      className="bg-white/4 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 outline-none transition-colors focus:border-amber-500/40 focus:bg-white/6 focus:ring-2 focus:ring-amber-500/10 w-full"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -123,17 +123,13 @@ const Contact = () => {
                       type="text"
                       name="email"
                       placeholder="+93 xx xxx xxxx"
-                      className="bg-white/4 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 outline-none transition-colors focus:border-amber-500/40 focus:bg-white/6 focus:ring-2 focus:ring-amber-500/10"
+                      className="bg-white/4 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 outline-none transition-colors focus:border-amber-500/40 focus:bg-white/6 focus:ring-2 focus:ring-amber-500/10 w-full"
                     />
                   </div>
                 </div>
 
                 {/* Hidden inputs to feed button selection values into EmailJS form submission */}
-                <input
-                  type="hidden"
-                  name="material"
-                  value={material}
-                />
+                <input type="hidden" name="material" value={material} />
                 <input type="hidden" name="size" value={size} />
 
                 <div className="flex flex-col gap-2 mt-6">
@@ -188,7 +184,7 @@ const Contact = () => {
                     rows={4}
                     name="description"
                     placeholder="Room type, colors you're drawn to, any pattern references..."
-                    className="bg-white/4 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 outline-none transition-colors resize-none focus:border-amber-500/40 focus:bg-white/6 focus:ring-2 focus:ring-amber-500/10"
+                    className="bg-white/4 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 outline-none transition-colors resize-none focus:border-amber-500/40 focus:bg-white/6 focus:ring-2 focus:ring-amber-500/10 w-full"
                   />
                 </div>
 
@@ -196,7 +192,7 @@ const Contact = () => {
                   type="submit"
                   disabled={isSending}
                   variant="secondary"
-                  className="mt-8 py-5 px-8 rounded-full cursor-pointer w-fit font-medium shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
+                  className="mt-8 py-5 px-8 rounded-full cursor-pointer w-full sm:w-fit font-medium shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
                 >
                   {isSending ? "Sending..." : "Send inquiry"}
                 </Button>
@@ -205,34 +201,42 @@ const Contact = () => {
 
             {/* Direct contact + WhatsApp */}
             <div className="flex flex-col gap-6">
-              <GlassPanel className="p-8">
+              <GlassPanel className="p-6 md:p-8">
                 <p className="text-zinc-500 text-sm font-medium">
                   Prefer to just message us?
                 </p>
-                <h3 className="font-semibold text-2xl tracking-tight mt-2">
+                <h3 className="font-semibold text-xl sm:text-2xl tracking-tight mt-2">
                   WhatsApp is fastest
                 </h3>
                 <p className="text-zinc-400 text-sm mt-3 leading-relaxed">
                   Most custom orders start as a photo and a voice note. Send us
                   both and we'll reply with options same-day.
                 </p>
-                <a href="https://wa.me/93788544379" target="blank">
+                <a
+                  href="https://wa.me/93788544379"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Button
                     variant="ghost"
-                    className="mt-5 py-5 px-7 rounded-full border border-white/15 hover:bg-white hover:text-black cursor-pointer w-fit font-medium transition-colors"
+                    className="mt-5 py-5 px-7 rounded-full border border-white/15 hover:bg-white hover:text-black cursor-pointer w-full sm:w-fit font-medium transition-colors"
                   >
                     Message on WhatsApp
                   </Button>
                 </a>
               </GlassPanel>
 
-              <GlassPanel className="p-8">
-                <h3 className="font-semibold text-xl tracking-tight">Email</h3>
-                <p className="text-zinc-300 text-sm mt-2">
+              <GlassPanel className="p-6 md:p-8">
+                <h3 className="font-semibold text-lg sm:text-xl tracking-tight">
+                  Email
+                </h3>
+                <p className="text-zinc-300 text-sm mt-2 break-words">
                   orders@baraticarpets.com
                 </p>
                 <div className="h-px bg-white/10 my-5" />
-                <h3 className="font-semibold text-xl tracking-tight">Phone</h3>
+                <h3 className="font-semibold text-lg sm:text-xl tracking-tight">
+                  Phone
+                </h3>
                 <p className="text-zinc-300 text-sm mt-2">+93 78 854 4379</p>
               </GlassPanel>
             </div>
@@ -240,19 +244,22 @@ const Contact = () => {
         </section>
 
         {/* Showrooms */}
-        <section className="min-w-full bg-black text-white py-24">
+        <section className="min-w-full bg-black text-white py-16 sm:py-24 px-4">
           <div className="max-w-6xl mx-auto flex flex-col items-center">
             <h3 className="text-center text-zinc-500 text-sm font-medium uppercase tracking-widest">
               Visit in Person
             </h3>
-            <h2 className="font-semibold text-5xl tracking-tight text-center mt-3">
+            <h2 className="font-semibold text-3xl sm:text-4xl md:text-5xl tracking-tight text-center mt-3">
               See the weave before you decide.
             </h2>
 
-            <div className="grid mt-14">
+            <div className="grid mt-14 w-full justify-items-center">
               {locations.map((loc) => (
-                <GlassPanel key={loc.city} className="p-8 w-150">
-                  <h4 className="font-semibold text-2xl tracking-tight">
+                <GlassPanel
+                  key={loc.city}
+                  className="p-6 md:p-8 w-full max-w-lg"
+                >
+                  <h4 className="font-semibold text-xl sm:text-2xl tracking-tight">
                     {loc.city}
                   </h4>
                   <p className="text-zinc-400 text-sm mt-3">{loc.detail}</p>
