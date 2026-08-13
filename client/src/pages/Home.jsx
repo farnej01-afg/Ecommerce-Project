@@ -5,18 +5,22 @@ import CategoryScroll from "@/components/layout/categoryScroll";
 import { Hand, Truck, ShieldCheck, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router";
 import BannerSlider from "@/components/common/bannerSlider";
+import ShopByColorSections from "@/components/layout/shopByColor";
+
 const Home = () => {
   const [showIntro, setShowIntro] = useState(true);
   const navigate = useNavigate();
 
   return (
     <>
+      {/* intro animation */}
       {showIntro && (
         <PageTransition
           words={["Welcome"]}
           onComplete={() => setShowIntro(false)}
         />
       )}
+
       {/* hero section */}
       <section className="relative min-w-full min-h-fit md:min-h-screen overflow-hidden bg-black text-white pt-30">
         {/* Ambient color blobs */}
@@ -86,15 +90,21 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* banner slider section */}
       <section className=" w-full min-h-fit overflow-hidden bg-black text-white py-8 px-4 md:px-8">
         <BannerSlider />
       </section>
-      <section className="bg-zinc-900 py-16">
-        <CategoryScroll />
-        <CategoryScroll />
 
+      {/* shop by category section */}
+      <section className="bg-zinc-900 pt-16">
+        <CategoryScroll />
       </section>
-      {/* portal to shop */}
+
+      {/* shop by color section */}
+      <section className="bg-zinc-800 ">
+        <ShopByColorSections />
+      </section>
     </>
   );
 };
