@@ -47,30 +47,52 @@ const createProduct = async (req, res, next) => {
   }
 };
 
-// get products from database
+// get all products for admin
 const getProducts = async (req, res, next) => {
   try {
-    // returns back whatever product it finds
     const products = await Product.find({}).populate("category");
 
-    // sends it through json
     res.status(200).json(products);
   } catch (err) {
     console.log(err);
-    // 500 error means the error is from the server
-    // res.status(500).json({
-    //   message: err.message,
-    // });
     next(err);
   }
 };
 
-// gets single product from database
+// get all products for users view
+const getActiveProducts = async (req, res, next) => {
+  try {
+    const activeProducts = await Product.find({ isVisible: true }).populate(
+      "category",
+    );
+
+    res.status(200).json(activeProducts);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getSingleProduct = async (req, res, next) => {
   try {
-    res.setHeader("Content-Type", "application/json");
+    const singleProduct = await Product.find(req.params.id);
 
-    const singleProduct = await Product.findById(req.params.id);
+    if (!singleProduct) {
+      res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json(singleproduct);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// gets single product for users
+const getSingleActiveProduct = async (req, res, next) => {
+  try {
+    const singleProduct = await Product.findOne({
+      _id: req.params.id,
+      isVisible: true,
+    });
 
     if (!singleProduct) {
       return res.status(404).json({
@@ -80,7 +102,6 @@ const getSingleProduct = async (req, res, next) => {
 
     res.status(200).json(singleProduct);
   } catch (err) {
-    // res.status(500).json({ message: err.message });
     next(err);
   }
 };
@@ -159,13 +180,34 @@ const deleteProduct = async (req, res, next) => {
     next(err);
   }
 };
+
+const toggleVisibility = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found!" });
+    }
+
+    product.isVisible = !product.isVisible;
+    await product.save();
+
+    res.status(200).json(product);
+  } catch (err) {
+    next(err);
+  }
+};
 // eventually have more functions to deal with this product
 
 export {
   createProduct,
   getProducts,
+  getSingleActiveProduct,
   getSingleProduct,
   updateProduct,
   deleteProduct,
   quickUpdateProduct,
+  getActiveProducts,
+  toggleVisibility,
 };

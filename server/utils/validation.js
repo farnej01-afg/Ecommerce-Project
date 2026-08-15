@@ -1,5 +1,6 @@
 function validateProduct(data) {
-  const { name, price, description, countInStock, collection } = data;
+  const { name, price, description, countInStock, category, discount, color } =
+    data;
 
   const validationStatus = {
     isValid: true,
@@ -30,9 +31,37 @@ function validateProduct(data) {
     validationStatus.errors.push("Stock count must be a non-negative number");
   }
 
-  if (!data.category || typeof data.category !== "string") {
+  // Validate category
+  if (!category || typeof category !== "string") {
     validationStatus.isValid = false;
     validationStatus.errors.push("Collection/Category ID is required");
+  }
+
+  // validate color
+  if (!color || typeof color !== "string") {
+    validationStatus.isValid = false;
+    validationStatus.errors.push("Color for the product is required!");
+  }
+
+  // Validate discount
+  if (discount !== undefined && discount.percentage !== undefined) {
+    if (
+      typeof discount.percentage !== "number" ||
+      discount.percentage < 0 ||
+      discount.percentage > 100
+    ) {
+      validationStatus.isValid = false;
+      validationStatus.errors.push("Discount should be between 0 to 100");
+    }
+    if (
+      discount.isActive !== undefined &&
+      typeof discount.isActive !== "boolean"
+    ) {
+      validationStatus.isValid = false;
+      validationStatus.errors.push(
+        "Discount isActive must be either true or false",
+      );
+    }
   }
 
   return validationStatus;

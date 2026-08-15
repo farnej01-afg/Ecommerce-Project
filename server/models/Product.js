@@ -34,6 +34,10 @@ const productSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
     },
+    isVisible: {
+      type: Boolean,
+      default: true,
+    },
     images: [
       {
         url: {
