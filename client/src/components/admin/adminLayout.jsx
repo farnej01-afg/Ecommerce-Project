@@ -4,7 +4,7 @@ import Topbar from "./topbar";
 
 export default function AdminLayout() {
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full bg-neutral-950 h-screen">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Topbar />

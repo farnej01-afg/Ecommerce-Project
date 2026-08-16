@@ -25,7 +25,7 @@ const createProduct = async (req, res, next) => {
     }
 
     // only destructure the fields we haven't already converted
-    const { name, description, category } = req.body;
+    const { name, description, category, color } = req.body;
 
     const images = (req.files || []).map((file) => ({
       url: file.path,
@@ -38,6 +38,7 @@ const createProduct = async (req, res, next) => {
       description,
       countInStock,
       category,
+      color,
       images,
     });
 
@@ -74,13 +75,13 @@ const getActiveProducts = async (req, res, next) => {
 
 const getSingleProduct = async (req, res, next) => {
   try {
-    const singleProduct = await Product.find(req.params.id);
+    const singleProduct = await Product.findById(req.params.id);
 
     if (!singleProduct) {
-      res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({ message: "Product not found" });
     }
 
-    res.status(200).json(singleproduct);
+    res.status(200).json(singleProduct);
   } catch (err) {
     next(err);
   }

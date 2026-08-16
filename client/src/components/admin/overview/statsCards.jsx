@@ -1,4 +1,3 @@
-// components/admin/StatCards.jsx
 import { Megaphone, Package, Tags } from "lucide-react";
 import { useProducts } from "@/hooks/useProducts";
 import { useCategories } from "@/hooks/useCategories";

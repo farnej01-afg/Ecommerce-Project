@@ -32,6 +32,8 @@ import useCurrentRole from "./hooks/useCurrentRole";
 import AdminLayout from "./components/admin/adminLayout";
 import OrderStatus from "./pages/OrderStatus";
 import Checkout from "./pages/Checkout";
+import ProductsPage from "./pages/admin/pages/productsPage";
+import CategoriesPage from "./pages/admin/pages/categoriesPage";
 function ProtectedRoute({ children }) {
   const token = useAuthStore((state) => state.token);
   return token ? children : <Navigate to="/login" replace />;
@@ -134,14 +136,8 @@ export default function App() {
               }
             >
               <Route index element={<Dashboard />} />
-              <Route
-                path="products"
-                element={<div>Products page coming soon</div>}
-              />
-              <Route
-                path="categories"
-                element={<div>Categories page coming soon</div>}
-              />
+              <Route path="products" element={<ProductsPage />} />
+              <Route path="categories" element={<CategoriesPage />} />
               <Route
                 path="orders"
                 element={<div>Orders page coming soon</div>}

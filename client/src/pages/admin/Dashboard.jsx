@@ -1,4 +1,4 @@
-import StatCards from "@/components/admin/statsCards";
+import StatCards from "@/components/admin/overview/statsCards";
 
 export default function Dashboard() {
   return (

@@ -35,6 +35,7 @@ export function useCreateProduct() {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({queryKey: ["admin-products"]});
     },
   });
 }
@@ -83,7 +84,7 @@ export function useDeleteProduct() {
 
   return useMutation({
     mutationFn: async (id) => {
-      const response = await axiosInstance.delete(`products/${id}`);
+      const response = await axiosInstance.delete(`/products/${id}`);
       return response.data;
     },
     onSuccess: () => {

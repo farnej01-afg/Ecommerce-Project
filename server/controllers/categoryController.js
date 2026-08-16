@@ -4,15 +4,20 @@ import cloudinary from "../config/cloudinary.js";
 const createCategory = async (req, res, next) => {
   try {
     const { name, description } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({
+        message: "Category image is required",
+      });
+    }
+
     const category = await Category.create({
       name,
       description,
-      image: req.file
-        ? {
-            url: req.file.path,
-            publicId: req.file.filename,
-          }
-        : undefined,
+      image: {
+        url: req.file.path,
+        publicId: req.file.filename,
+      },
     });
     res.status(201).json(category);
   } catch (err) {
