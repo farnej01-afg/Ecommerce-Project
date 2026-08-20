@@ -10,6 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import favoriteRoutes from "./routes/favoriteRoutes.js";
 import { cryptoWebHook } from "./controllers/paymentController.js";
 import logger from "./middleware/logger.js";
 import errorHandler from "./middleware/errorMiddleware.js";
@@ -52,6 +53,7 @@ async function start() {
     app.use("/api/banners", bannerRoutes);
     app.use("/api/admin", adminRoutes);
     app.use("/api/orders", orderRoutes);
+    app.use("/api/favorites", favoriteRoutes);
 
     // Error handler
     app.use(errorHandler);

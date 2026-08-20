@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import axiosInstance from "../../api/axiosInstance";
 
-
 const useAuthStore = create((set) => ({
   user: null,
   token: null,
@@ -10,10 +9,9 @@ const useAuthStore = create((set) => ({
   error: null,
   setUser: (userData) => set({ user: userData }),
   setToken: (token) => set({ token }),
-  setRole: (role) => set({role}),
+  setRole: (role) => set({ role }),
   login: async (email, password) => {
     set({ isLoading: true, error: null });
-
 
     try {
       const response = await axiosInstance.post("/users/login", {
@@ -26,11 +24,10 @@ const useAuthStore = create((set) => ({
         token: response.data.token,
         role: response.data.role,
         isLoading: false,
-
       });
 
       localStorage.setItem("token", response.data.token);
-
+      localStorage.removeItem("guestFavoriteIds");
       return response.data;
     } catch (err) {
       set({
@@ -56,6 +53,7 @@ const useAuthStore = create((set) => ({
       });
 
       localStorage.setItem("token", response.data.token);
+      localStorage.removeItem("guestFavoriteIds");
       return response.data;
     } catch (err) {
       set({
