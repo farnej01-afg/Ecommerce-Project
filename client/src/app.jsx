@@ -8,7 +8,6 @@ import {
   Link,
 } from "react-router-dom";
 import { useEffect } from "react";
-
 import useAuthStore from "./features/auth/authStore";
 import ScrollToTop from "./utils/scrollToTop";
 import Home from "./pages/Home";
@@ -34,6 +33,7 @@ import OrderStatus from "./pages/OrderStatus";
 import Checkout from "./pages/Checkout";
 import ProductsPage from "./pages/admin/pages/productsPage";
 import CategoriesPage from "./pages/admin/pages/categoriesPage";
+import UsersPage from "./pages/admin/pages/usersPage";
 import FavoritesPage from "./pages/Favorites";
 function ProtectedRoute({ children }) {
   const token = useAuthStore((state) => state.token);
@@ -100,7 +100,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/favorites" element={<FavoritesPage/>}/>
+            <Route path="/favorites" element={<FavoritesPage />} />
 
             <Route
               path="/profile"
@@ -144,7 +144,7 @@ export default function App() {
                 path="orders"
                 element={<div>Orders page coming soon</div>}
               />
-              <Route path="users" element={<div>Users page coming soon</div>} />
+              <Route path="users" element={<UsersPage />} />
               <Route path="inbox" element={<div>Inbox page coming soon</div>} />
               s{/* add more routes here */}
             </Route>
