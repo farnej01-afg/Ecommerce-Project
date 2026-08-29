@@ -2,7 +2,7 @@ import Favorite from "../models/FavoriteItem.js";
 
 const addToFavorite = async (req, res, next) => {
   try {
-    const userId = req.user._id;
+    const userId = req.userId;
     const { productId } = req.params;
 
     const favItem = await Favorite.findOneAndUpdate(
@@ -19,7 +19,7 @@ const addToFavorite = async (req, res, next) => {
 
 const removeFavorite = async (req, res, next) => {
   try {
-    const userId = req.user._id;
+    const userId = req.userId;
     const { productId } = req.params;
 
     const removedFavItem = await Favorite.findOneAndUpdate(
@@ -40,7 +40,7 @@ const removeFavorite = async (req, res, next) => {
 
 const getFavItem = async (req, res, next) => {
   try {
-    const userId = req.user._id;
+    const userId = req.userId;
 
     const favorite = await Favorite.findOne({ user: userId }).populate(
       "products",

@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/api/axiosInstance";
 
-// these codes need review
-const useFavorites = () => {
+
+const useServerFavorites = () => {
   return useQuery({
     queryKey: ["favorites"],
     queryFn: async () => {
@@ -40,4 +40,4 @@ const useRemoveFavorites = () => {
   });
 };
 
-export { useFavorites, useAddToFavorites, useRemoveFavorites };
+export { useServerFavorites, useAddToFavorites, useRemoveFavorites };

@@ -34,6 +34,7 @@ import OrderStatus from "./pages/OrderStatus";
 import Checkout from "./pages/Checkout";
 import ProductsPage from "./pages/admin/pages/productsPage";
 import CategoriesPage from "./pages/admin/pages/categoriesPage";
+import FavoritesPage from "./pages/Favorites";
 function ProtectedRoute({ children }) {
   const token = useAuthStore((state) => state.token);
   return token ? children : <Navigate to="/login" replace />;
@@ -88,7 +89,7 @@ export default function App() {
       <ToastContainer />
       <BrowserRouter>
         <ScrollToTop />
-        <LayoutWrapper>
+        <LayoutWrapper className="">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
@@ -99,6 +100,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/favorites" element={<FavoritesPage/>}/>
 
             <Route
               path="/profile"

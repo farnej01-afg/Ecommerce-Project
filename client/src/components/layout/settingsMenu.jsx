@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router";
-import { User, LogIn, Moon, Sun, ShieldCheck } from "lucide-react";
+import { User, LogIn, Moon, Sun, ShieldCheck, Heart } from "lucide-react";
 import useAuthStore from "@/features/auth/authStore";
 import useThemeStore from "@/features/theme/themeStore";
 import useCurrentRole from "@/hooks/useCurrentRole";
@@ -89,6 +89,16 @@ export default function SettingsMenu({ open, onClose }) {
             </Link>
           </>
         )}
+        <div className="my-1 h-px bg-white/10" />
+
+        <Link
+          to="/favorites"
+          onClick={onClose}
+          className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+        >
+          <Heart size={16} strokeWidth={1.5} />
+          Favorites
+        </Link>
       </div>
     </div>
   );

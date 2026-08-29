@@ -1,30 +1,57 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCart, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import useCartStore from "@/features/cart/cartStore";
+import { useFavorites } from "@/hooks/favorites/useFavorites";
 import { toast } from "react-toastify";
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const addToCart = useCartStore((state) => state.addToCart);
 
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { favorites, addFavorites, removeFavorites } = useFavorites();
+
+  const [isWishlisted, setIsWishlisted] = useState(() =>
+    favorites.some((f) => f._id === product._id),
+  );
+
+  useEffect(() => {
+    setIsWishlisted(favorites.some((f) => f._id === product._id));
+  }, [favorites, product._id]);
 
   function handleCardClick() {
     navigate(`/products/${product._id}`);
   }
 
   function handleAddToCart(e) {
-    e.stopPropagation(); // don't trigger the card's navigate
+    e.stopPropagation();
     addToCart(product);
     toast.success("Added to cart successfully!");
   }
 
   function handleToggleWishlist(e) {
-    e.stopPropagation(); // don't trigger the card's navigate
-    setIsWishlisted((prev) => !prev);
+    e.stopPropagation();
+
+    const nextState = !isWishlisted;
+    setIsWishlisted(nextState);
+
+    if (nextState) {
+      addFavorites(product._id, {
+        onError: () => {
+          setIsWishlisted(false);
+          toast.error("Couldn't add to favorites");
+        },
+      });
+    } else {
+      removeFavorites(product._id, {
+        onError: () => {
+          setIsWishlisted(true);
+          toast.error("Could'nt remove from favorites");
+        },
+      });
+    }
   }
 
   const inStock = product.countInStock > 0;
