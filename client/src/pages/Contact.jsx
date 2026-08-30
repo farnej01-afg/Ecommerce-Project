@@ -230,7 +230,7 @@ const Contact = () => {
                 <h3 className="font-semibold text-lg sm:text-xl tracking-tight">
                   Email
                 </h3>
-                <p className="text-zinc-300 text-sm mt-2 break-words">
+                <p className="text-zinc-300 text-sm mt-2 wrap-break-word">
                   orders@baraticarpets.com
                 </p>
                 <div className="h-px bg-white/10 my-5" />

@@ -11,7 +11,9 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import favoriteRoutes from "./routes/favoriteRoutes.js";
+import emailRoutes from "./routes/emailRoutes.js";
 import { cryptoWebHook } from "./controllers/paymentController.js";
+
 import logger from "./middleware/logger.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 import cors from "cors";
@@ -54,6 +56,7 @@ async function start() {
     app.use("/api/admin", adminRoutes);
     app.use("/api/orders", orderRoutes);
     app.use("/api/favorites", favoriteRoutes);
+    app.use("/api/inquiries", emailRoutes);
 
     // Error handler
     app.use(errorHandler);
