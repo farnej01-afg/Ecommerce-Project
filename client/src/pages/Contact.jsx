@@ -232,7 +232,13 @@ const Contact = () => {
                 </h3>
                 <p className="text-zinc-300 text-sm mt-2 wrap-break-word">
                   orders@baraticarpets.com
+                  <br />
+                  or you can just:
                 </p>
+                <div className="flex gap-5">
+                <Button variant="secondary"
+                  className="mt-8 py-5 px-8 rounded-full cursor-pointer w-full sm:w-fit font-medium shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100">Send a short message</Button>
+                </div>
                 <div className="h-px bg-white/10 my-5" />
                 <h3 className="font-semibold text-lg sm:text-xl tracking-tight">
                   Phone
